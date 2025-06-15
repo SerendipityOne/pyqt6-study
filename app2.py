@@ -1,7 +1,7 @@
 import sys
 
 from PyQt6.QtCore import QSize
-from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel, QLineEdit, QVBoxLayout, QWidget
+from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel
 
 
 class MainWindow(QMainWindow):
@@ -11,19 +11,23 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("My App")
         self.setFixedSize(QSize(400, 200))
 
-        self.label = QLabel()
+        self.setMouseTracking(True)  # 开启鼠标追踪
+        self.label = QLabel("Click in this window")
+        self.label.setMouseTracking(True)
+        self.setCentralWidget(self.label)
 
-        self.input = QLineEdit()
-        self.input.textChanged.connect(self.label.setText)  # 将输入框内容绑定到标签上
+    # 重写鼠标事件
+    def mouseMoveEvent(self, e):
+        self.label.setText("mouseMoveEvent")
 
-        layout = QVBoxLayout()  # 垂直布局
-        layout.addWidget(self.input)  # 添加输入框到布局
-        layout.addWidget(self.label)
+    def mousePressEvent(self, e):
+        self.label.setText("mousePressEvent")
 
-        container = QWidget()  # 创建容器
-        container.setLayout(layout)  # 设置布局
+    def mouseReleaseEvent(self, e):
+        self.label.setText("mouseReleaseEvent")
 
-        self.setCentralWidget(container)
+    def mouseDoubleClickEvent(self, e):
+        self.label.setText("mouseDoubleClickEvent")
 
 
 app = QApplication(sys.argv)
