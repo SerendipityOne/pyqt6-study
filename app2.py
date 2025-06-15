@@ -1,33 +1,22 @@
 import sys
 
 from PyQt6.QtCore import QSize
-from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel
+from PyQt6.QtGui import QAction
+from PyQt6.QtWidgets import QApplication, QMainWindow,QMenu
 
 
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        self.setWindowTitle("My App")
-        self.setFixedSize(QSize(400, 200))
+        self.setFixedSize(QSize(400, 300))
 
-        self.setMouseTracking(True)  # 开启鼠标追踪
-        self.label = QLabel("Click in this window")
-        self.label.setMouseTracking(True)
-        self.setCentralWidget(self.label)
-
-    # 重写鼠标事件
-    def mouseMoveEvent(self, e):
-        self.label.setText("mouseMoveEvent")
-
-    def mousePressEvent(self, e):
-        self.label.setText("mousePressEvent")
-
-    def mouseReleaseEvent(self, e):
-        self.label.setText("mouseReleaseEvent")
-
-    def mouseDoubleClickEvent(self, e):
-        self.label.setText("mouseDoubleClickEvent")
+    def contextMenuEvent(self, event):
+        context = QMenu(self)  # 创建一个上下文菜单
+        context.addAction(QAction("test 1", self))  # 创建一个动作
+        context.addAction(QAction("test 2", self))
+        context.addAction(QAction("test 3", self))
+        context.exec(event.globalPos())  # 在鼠标位置显示上下文菜单
 
 
 app = QApplication(sys.argv)
