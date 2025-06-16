@@ -22,16 +22,19 @@ class MainWindow(QMainWindow):
         super().__init__()
         self.setWindowTitle("My App")
 
-        widget = QCheckBox()
-        widget.setCheckState(Qt.CheckState.Checked)
+        widget = QComboBox()
+        widget.addItems(["One", "Two", "Three"])
 
-        widget.stateChanged.connect(self.show_state)
+        widget.currentIndexChanged.connect(self.index_changed)
+        widget.currentTextChanged.connect(self.text_changed)
 
         self.setCentralWidget(widget)
 
-    def show_state(self, s):
-        print(s == Qt.CheckState.Checked.value)
-        print(s)
+    def index_changed(self, index):
+        print(index)
+
+    def text_changed(self, text):
+        print(text)
 
 
 app = QApplication(sys.argv)
