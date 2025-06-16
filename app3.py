@@ -22,26 +22,33 @@ class MainWindow(QMainWindow):
         super().__init__()
         self.setWindowTitle("My App")
 
-        widget = QSpinBox()
-        # Or: widget = QDoubleSpinBox()
+        widget = QSlider(Qt.Orientation.Vertical) # 创建垂直方向的滑块（默认）
+        # widget = QSlider(Qt.Orientation.Horizontal) # 创建水平方向的滑块
 
-        widget.setMinimum(-9)
+        widget.setMinimum(-10)
         widget.setMaximum(3)
-        # Or: widget.setRange(-9, 3)
+        # Or: widget.setRange(-10,3)
 
-        widget.setPrefix("$")
-        widget.setSuffix("c")
-        widget.setSingleStep(3)  #设置步长 Or e.g. 3.0 for QDoubleSpinBox
-        widget.valueChanged.connect(self.value_changed)
-        widget.textChanged.connect(self.value_changed_str)
+        widget.setSingleStep(3)
+
+        widget.valueChanged.connect(self.value_changed)  # 当滑块的值改变时触发
+        widget.sliderMoved.connect(self.slider_position)  # 当滑块移动时触发
+        widget.sliderPressed.connect(self.slider_pressed)  # 当滑块按下时触发
+        widget.sliderReleased.connect(self.slider_released)  # 当滑块释放时触发
 
         self.setCentralWidget(widget)
 
     def value_changed(self, i):
         print(i)
 
-    def value_changed_str(self, s):
-        print(s)
+    def slider_position(self, p):
+        print("Position", p)
+
+    def slider_pressed(self):
+        print("Pressed!")
+
+    def slider_released(self):
+        print("Released")
 
 
 app = QApplication(sys.argv)
