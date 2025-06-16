@@ -22,17 +22,16 @@ class MainWindow(QMainWindow):
         super().__init__()
         self.setWindowTitle("My App")
 
-        widget = QLabel("Hello, PyQt!")
-        font = widget.font()
-        font.setPointSize(30)
-        widget.setFont(font)
-        widget.setPixmap(QPixmap("otje.jpg"))  # 设置 QLabel 的背景图片。
-        widget.setScaledContents(True)  # 让 QLabel 的内容自适应大小。
-        # 将 QLabel 中的文本设置为水平和垂直居中对齐。
-        # widget.setAlignment(Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignVCenter)
-        widget.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        widget = QCheckBox()
+        widget.setCheckState(Qt.CheckState.Checked)
+
+        widget.stateChanged.connect(self.show_state)
 
         self.setCentralWidget(widget)
+
+    def show_state(self, s):
+        print(s == Qt.CheckState.Checked.value)
+        print(s)
 
 
 app = QApplication(sys.argv)
