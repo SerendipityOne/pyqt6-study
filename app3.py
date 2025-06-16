@@ -22,32 +22,25 @@ class MainWindow(QMainWindow):
         super().__init__()
         self.setWindowTitle("My App")
 
-        widget = QLineEdit()
-        widget.setMaxLength(10)
-        widget.setPlaceholderText("Enter text here")
-        # widget.setReadOnly(True)
+        widget = QSpinBox()
+        # Or: widget = QDoubleSpinBox()
 
-        widget.returnPressed.connect(self.return_pressed)  # 当按下回车键时触发
-        widget.selectionChanged.connect(self.selection_changed)  # 当选中文本时触发
-        widget.textChanged.connect(self.text_changed)  # 当文本改变时触发
-        widget.textEdited.connect(self.text_edited)  # 当文本被编辑时触发
+        widget.setMinimum(-9)
+        widget.setMaximum(3)
+        # Or: widget.setRange(-9, 3)
+
+        widget.setPrefix("$")
+        widget.setSuffix("c")
+        widget.setSingleStep(3)  #设置步长 Or e.g. 3.0 for QDoubleSpinBox
+        widget.valueChanged.connect(self.value_changed)
+        widget.textChanged.connect(self.value_changed_str)
 
         self.setCentralWidget(widget)
 
-    def return_pressed(self):
-        print("Return pressed!")
-        self.centralWidget().setText("BOOM!")
+    def value_changed(self, i):
+        print(i)
 
-    def selection_changed(self):
-        print("Selection changed")
-        print(self.centralWidget().selectedText())
-
-    def text_changed(self, s):
-        print("Text changed...")
-        print(s)
-
-    def text_edited(self, s):
-        print("Text edited...")
+    def value_changed_str(self, s):
         print(s)
 
 
