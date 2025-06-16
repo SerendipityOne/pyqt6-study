@@ -12,8 +12,8 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("My App")
 
         tabs = QTabWidget()
-        tabs.setTabPosition(QTabWidget.TabPosition.North)
-        tabs.setMovable(True)
+        tabs.setTabPosition(QTabWidget.TabPosition.North) # 添加选项卡
+        tabs.setMovable(True) # 允许拖动选项卡
 
         for color in ["red", "green", "blue", "yellow"]:
             tabs.addTab(Color(color), color)
