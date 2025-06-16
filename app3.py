@@ -22,16 +22,16 @@ class MainWindow(QMainWindow):
         super().__init__()
         self.setWindowTitle("My App")
 
-        widget = QComboBox()
+        widget = QListWidget()
         widget.addItems(["One", "Two", "Three"])
 
-        widget.currentIndexChanged.connect(self.index_changed)
+        widget.currentItemChanged.connect(self.index_changed)
         widget.currentTextChanged.connect(self.text_changed)
 
         self.setCentralWidget(widget)
 
     def index_changed(self, index):
-        print(index)
+        print(index.text())
 
     def text_changed(self, text):
         print(text)
