@@ -22,19 +22,33 @@ class MainWindow(QMainWindow):
         super().__init__()
         self.setWindowTitle("My App")
 
-        widget = QListWidget()
-        widget.addItems(["One", "Two", "Three"])
+        widget = QLineEdit()
+        widget.setMaxLength(10)
+        widget.setPlaceholderText("Enter text here")
+        # widget.setReadOnly(True)
 
-        widget.currentItemChanged.connect(self.index_changed)
-        widget.currentTextChanged.connect(self.text_changed)
+        widget.returnPressed.connect(self.return_pressed)  # 当按下回车键时触发
+        widget.selectionChanged.connect(self.selection_changed)  # 当选中文本时触发
+        widget.textChanged.connect(self.text_changed)  # 当文本改变时触发
+        widget.textEdited.connect(self.text_edited)  # 当文本被编辑时触发
 
         self.setCentralWidget(widget)
 
-    def index_changed(self, index):
-        print(index.text())
+    def return_pressed(self):
+        print("Return pressed!")
+        self.centralWidget().setText("BOOM!")
 
-    def text_changed(self, text):
-        print(text)
+    def selection_changed(self):
+        print("Selection changed")
+        print(self.centralWidget().selectedText())
+
+    def text_changed(self, s):
+        print("Text changed...")
+        print(s)
+
+    def text_edited(self, s):
+        print("Text edited...")
+        print(s)
 
 
 app = QApplication(sys.argv)
