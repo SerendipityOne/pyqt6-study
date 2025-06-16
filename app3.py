@@ -1,66 +1,41 @@
 import sys
 
 from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QPixmap
 from PyQt6.QtWidgets import (
     QApplication,
     QCheckBox,
     QComboBox,
-    QDateEdit,
-    QDateTimeEdit,
     QDial,
     QDoubleSpinBox,
-    QFontComboBox,
     QLabel,
-    QLCDNumber,
     QLineEdit,
+    QListWidget,
     QMainWindow,
-    QProgressBar,
-    QPushButton,
-    QRadioButton,
     QSlider,
     QSpinBox,
-    QTimeEdit,
-    QVBoxLayout,
-    QWidget,
 )
 
 
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
+        self.setWindowTitle("My App")
 
-        self.setWindowTitle("Widgets App")
-
-        layout = QVBoxLayout()
-        widgets = [
-            QCheckBox,  # 复选框
-            QComboBox,  # 下拉列表框
-            QDateEdit,  # 用于编辑日期和日期时间
-            QDateTimeEdit,  # 用于编辑日期和日期时间
-            QDial,  # 可旋转表盘
-            QDoubleSpinBox,  # 浮点数微调器
-            QFontComboBox,  # 字体列表
-            QLCDNumber,  # 相当丑陋的 LCD 显示屏
-            QLabel,  # 只是一个标签，而不是交互式的
-            QLineEdit,  # 输入一行文本
-            QProgressBar,  # 进度条
-            QPushButton,  # 一个按钮
-            QRadioButton,  # 只有一个活动项的切换集
-            QSlider,  # 滑块
-            QSpinBox,  # 整数微调器
-            QTimeEdit,  # 对于编辑时间
-        ]
-
-        for w in widgets:
-            layout.addWidget(w())
-
-        widget = QWidget()
-        widget.setLayout(layout)
+        widget = QLabel("Hello, PyQt!")
+        font = widget.font()
+        font.setPointSize(30)
+        widget.setFont(font)
+        widget.setPixmap(QPixmap("otje.jpg"))  # 设置 QLabel 的背景图片。
+        widget.setScaledContents(True)  # 让 QLabel 的内容自适应大小。
+        # 将 QLabel 中的文本设置为水平和垂直居中对齐。
+        # widget.setAlignment(Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignVCenter)
+        widget.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.setCentralWidget(widget)
 
 
 app = QApplication(sys.argv)
-window = MainWindow()
-window.show()
+w = MainWindow()
+w.show()
 app.exec()
