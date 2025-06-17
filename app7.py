@@ -28,18 +28,13 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setFixedSize(QSize(400, 300))
-        self.w = None
+        self.w = AnotherWindow()
         self.button = QPushButton("Push for Window")
         self.button.clicked.connect(self.show_new_window)
         self.setCentralWidget(self.button)
 
     def show_new_window(self, checked):
-        if self.w is None:
-            self.w = AnotherWindow()
             self.w.show()
-        else:
-            self.w.close()
-            self.w = None
 
 
 app = QApplication(sys.argv)
