@@ -2,8 +2,8 @@ from PyQt6.QtWidgets import QDialog, QDialogButtonBox, QVBoxLayout, QLabel
 
 
 class CustomDialog(QDialog):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, parent=None):
+        super().__init__(parent)
         self.setWindowTitle("HELLO!")
 
         QBtn = (QDialogButtonBox.StandardButton.Ok | QDialogButtonBox.StandardButton.Cancel)
