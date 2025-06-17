@@ -1,6 +1,7 @@
 import sys
 from random import randint
 
+from PyQt6.QtCore import QSize
 from PyQt6.QtWidgets import QMainWindow, QPushButton, QWidget, QVBoxLayout, QLabel, QApplication
 
 
@@ -11,6 +12,7 @@ class AnotherWindow(QWidget):
 
     def __init__(self):
         super().__init__()
+        self.setFixedSize(QSize(300, 150))
         layout = QVBoxLayout()
         """
         %d 格式化（%-formatting）是 Python 早期版本的字符串格式化方式，语法较为传统。
@@ -25,12 +27,15 @@ class AnotherWindow(QWidget):
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
+        self.setFixedSize(QSize(400, 300))
+        self.w = None
         self.button = QPushButton("Push for Window")
         self.button.clicked.connect(self.show_new_window)
         self.setCentralWidget(self.button)
 
     def show_new_window(self, checked):
-        self.w = AnotherWindow()
+        if self.w == None:
+            self.w = AnotherWindow()
         self.w.show()
 
 
