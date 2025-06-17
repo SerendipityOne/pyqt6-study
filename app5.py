@@ -28,6 +28,7 @@ class MainWindow(QMainWindow):
         button_action.setStatusTip("This is your button")
         button_action.triggered.connect(self.toolbar_button_clicked)
         button_action.setCheckable(True)
+        button_action.setShortcut(QKeySequence("Ctrl+p")) # 设置快捷键
         toolbar.addAction(button_action)
 
         toolbar.addSeparator()  # 添加分割线
@@ -42,6 +43,15 @@ class MainWindow(QMainWindow):
         toolbar.addWidget(QCheckBox("Check me!"))
 
         self.setStatusBar(QStatusBar(self))  # 添加状态栏
+
+        menu = self.menuBar() # 添加菜单栏
+
+        file_menu = menu.addMenu("&File") # 添加文件菜单
+        file_menu.addAction(button_action)
+        file_menu.addSeparator()
+
+        file_submenu = file_menu.addMenu("Submenu") # 添加子菜单
+        file_submenu.addAction(button_action2)
 
     def toolbar_button_clicked(self, s):
         print("click", s)
