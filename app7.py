@@ -34,9 +34,12 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(self.button)
 
     def show_new_window(self, checked):
-        if self.w == None:
+        if self.w is None:
             self.w = AnotherWindow()
-        self.w.show()
+            self.w.show()
+        else:
+            self.w.close()
+            self.w = None
 
 
 app = QApplication(sys.argv)
